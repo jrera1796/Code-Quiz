@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Code Quiz</title>
+  <link rel="stylesheet" href="./assets/css/style.css">
+</head>
+<body>
+  <!--Header element-->
+  <header>
+    <h1 class="header-title">Code Quiz</h1>
+    <nav class="nav-list">
+      <ul>
+        <li class="nav-item"><a href="#high-score" id="high-score">View Highscore</a></li>
+        <!--Upon clicking view high-score hides/unhides score-->
+      </ul>
+    </nav>
+  </header>
+<!--Code quiz section-->
+<section>
+  <!--Timer container-->
+  <button class="start-btn" id="start-btn" type="button">Start</button>
+  <h2 class="countdown" id="countdown"></h2>
+  
+</section>
+<section class="quiz-content" id="quiz-content">
+  
+  <div class="quiz-container" id="quiz-container">
+    <h2 class="quiz-title">Quiz Title</h2>
+    <p class="quiz-prompt">Quiz Question</p>
+  </div>
+
+  <!-- Hidden High score element -->
+
+  <div class="hs-container" id="hs-stats" style="display: none;">
+    <h2 class ="quiz-title">High Scores</h2>
+      <ul class="quiz-prompt">
+        <li class ="hs-save" id="hs-save"></li>
+      </ul>
+  </div>
+  
+</section>
+
+
+
+<!--Footer element-->
+<footer>
+  <h4>
+    Made By Jose Rivera 2021
+  </h4>
+</footer>
+
+<!--Script-->
+<script src="./assets/js/script.js"></script>
+</body>
+</html>
