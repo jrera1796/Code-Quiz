@@ -16,18 +16,52 @@ var createQuizQuestionEl = function(){
   
   //creating h2 element
   var quizH2el = document.createElement("h2");
-  quizH2el.textContent = "This will be iterated somehow";
+  quizH2el.textContent = quizQuestion[0].Topic;
   quizH2el.className = "quiz-title";
   
   quizPopulatedDivEl.appendChild(quizH2el);
 
-  //creating p element
-  var quizPEl = document.createElement("p");
-  quizPEl.textContent = "This will be another var";
-  quizPEl.className = "quiz-prompt";
-  quizPopulatedDivEl.appendChild(quizPEl);
+  //creating h3 element
+  var quizH3El = document.createElement("h3");
+  quizH3El.textContent = quizQuestion[0].Question;
+  quizH3El.className = "quiz-prompt";
+  quizPopulatedDivEl.appendChild(quizH3El);
 
-  quizContainerParent.appendChild(quizPopulatedDivEl);
+  //creating radio container
+  var quizButtonHolderEl = document.createElement("span")
+  quizButtonHolderEl.className = "button-holder";
+  quizPopulatedDivEl.appendChild(quizButtonHolderEl);
+
+  //creating radio buttons
+  var quizButtonAEl = document.createElement("button");
+  quizButtonAEl.type ="radio"
+  quizButtonAEl.className = "quiz-radio-btn";
+  quizButtonAEl.textContent = quizQuestion[0].A;
+  quizButtonHolderEl.appendChild(quizButtonAEl);
+
+  var quizButtonBEl = document.createElement("button");
+  quizButtonBEl.type ="radio"
+  quizButtonBEl.className = "quiz-radio-btn";
+  quizButtonBEl.textContent = quizQuestion[0].B;
+  quizButtonHolderEl.appendChild(quizButtonBEl);
+
+  var quizButtonCEl = document.createElement("button");
+  quizButtonCEl.type ="radio"
+  quizButtonCEl.className = "quiz-radio-btn";
+  quizButtonCEl.textContent = quizQuestion[0].C;
+  quizButtonHolderEl.appendChild(quizButtonCEl);
+
+  var quizButtonDEl = document.createElement("button");
+  quizButtonDEl.type ="radio"
+  quizButtonDEl.className = "quiz-radio-btn";
+  quizButtonDEl.textContent = quizQuestion[0].D;
+  quizButtonHolderEl.appendChild(quizButtonDEl);
+
+
+
+
+
+  quizContainerParent.prepend(quizPopulatedDivEl);
 };
 
 //Create or add to code above that removes and cycles through questions
@@ -47,6 +81,15 @@ function countdown() {
    }, 1000);
   };
 
+//Removes quiz welcome screen and starts quiz
+var quizBegin = function(){
+  var removeWelcome=document.getElementById("welcomeDiv")
+  removeWelcome.remove();
+
+  var removeStartBtn = document.getElementById("start-btn")
+  removeStartBtn.remove();
+}
+
 //High score visibilty handler
 var hsHandler = function(){
   if (hsViewScore.style.display === "none"){
@@ -61,18 +104,31 @@ var hsHandler = function(){
 hsButtonEl.addEventListener("click", hsHandler);
   
 //Only run once quiz is started
-buttonEl.addEventListener("click", createQuizQuestionEl);
 buttonEl.addEventListener("click", countdown);
+buttonEl.addEventListener("click", quizBegin);
+buttonEl.addEventListener("click", createQuizQuestionEl);
+
 
 
 
 //Question object array
 // Key: Value needs to be stringified
-var quizQuestion = {
+var quizQuestion = [
 
-  Question: "First question", 
-  A: "",
-  B: "",
-  C: ""
-  
-};
+{
+  Topic: "JavaScript",
+  Question: "Question 1", 
+  A: "Answer 1",
+  B: "Answer 2",
+  C: "Answer 3",
+  D: "Answer 3"
+},
+
+{
+  Topic: "Second question", 
+  A: "An1",
+  B: "An2",
+  C: "An3",
+  D: "An4"
+}]
+

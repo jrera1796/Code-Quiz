@@ -67,18 +67,24 @@ div{
 }
 
 
-.quiz-container{
+.quiz-container, .welcomeDiv{
   flex: 0 50%;
   margin: 0;
 }
 
-.quiz-prompt{
+.quiz-prompt, .hs-list, .welcomeP{
   list-style: none;
   padding: 15px;
   height: calc(100% - 50px);
   background: rgb(196, 196, 196);
   border-radius: 12px;
   border: 2px solid rgba(240, 238, 238, 0.5);
+}
+
+.welcomeP{
+  font-weight:bold;
+  font-size: 28px;
+  justify-content: center;
 }
 
 .hs-container{
