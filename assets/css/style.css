@@ -67,20 +67,28 @@ div{
 }
 
 
-.quiz-container, .welcomeDiv{
-  flex: 0 50%;
+.quiz-container, .welcomeDiv, .hs-container{
+  flex:0 70%;
   margin: 0;
+  height: 50%;
+  background: rgb(196, 196, 196);
+  border: 2px solid rgba(240, 238, 238, 0.924);
 }
 
 .quiz-prompt, .hs-list, .welcomeP{
   list-style: none;
   padding: 15px;
-  height: calc(100% - 50px);
+  height: 50%;
   background: rgb(196, 196, 196);
   border-radius: 12px;
-  border: 2px solid rgba(240, 238, 238, 0.5);
+  
+  
 }
 
+.quiz-radio-btn{
+ align-items: center;
+ 
+}
 .welcomeP{
   font-weight:bold;
   font-size: 28px;
@@ -90,5 +98,10 @@ div{
 .hs-container{
   flex: 0 20%;
   margin: 0;
+}
+
+.quiz-radio-btn{
+  width: 50%;
+
 }
 

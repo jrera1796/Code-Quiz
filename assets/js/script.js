@@ -1,11 +1,17 @@
 var timerEl = document.getElementById('countdown');
 var buttonEl = document.getElementById("start-btn");
+
 var hsViewScore = document.getElementById("hs-stats");
 var hsButtonEl = document.getElementById("high-score");
+var questionNum = 0;
+var timeLeft = 200;
+var selectButton = document.getElementById("quiz-radio-btn");
+
+//When a question is answered correctly/incorrectly check and save answer and delete 
+
 
 //This is the parent that will hold my quiz childs
 var quizContainerParent = document.getElementById("quiz-content") 
- 
 
 //Starts quiz and removes welcome screen element
 var createQuizQuestionEl = function(){
@@ -16,14 +22,14 @@ var createQuizQuestionEl = function(){
   
   //creating h2 element
   var quizH2el = document.createElement("h2");
-  quizH2el.textContent = quizQuestion[0].Topic;
+  quizH2el.textContent = quizQuestion[questionNum].Topic;
   quizH2el.className = "quiz-title";
   
   quizPopulatedDivEl.appendChild(quizH2el);
 
   //creating h3 element
   var quizH3El = document.createElement("h3");
-  quizH3El.textContent = quizQuestion[0].Question;
+  quizH3El.textContent = quizQuestion[questionNum].Question;
   quizH3El.className = "quiz-prompt";
   quizPopulatedDivEl.appendChild(quizH3El);
 
@@ -34,34 +40,42 @@ var createQuizQuestionEl = function(){
 
   //creating radio buttons
   var quizButtonAEl = document.createElement("button");
-  quizButtonAEl.type ="radio"
+  quizButtonAEl.type ="submit"
+  quizButtonAEl.id = "quiz-radio-btn";
   quizButtonAEl.className = "quiz-radio-btn";
-  quizButtonAEl.textContent = quizQuestion[0].A;
+  quizButtonAEl.textContent = quizQuestion[questionNum].A;
   quizButtonHolderEl.appendChild(quizButtonAEl);
 
   var quizButtonBEl = document.createElement("button");
-  quizButtonBEl.type ="radio"
+  quizButtonBEl.type ="submit"
+  quizButtonBEl.id = "quiz-radio-btn";
   quizButtonBEl.className = "quiz-radio-btn";
-  quizButtonBEl.textContent = quizQuestion[0].B;
+  quizButtonBEl.textContent = quizQuestion[questionNum].B;
   quizButtonHolderEl.appendChild(quizButtonBEl);
 
   var quizButtonCEl = document.createElement("button");
-  quizButtonCEl.type ="radio"
+  quizButtonCEl.type ="submit"
+  quizButtonCEl.id = "quiz-radio-btn";
   quizButtonCEl.className = "quiz-radio-btn";
-  quizButtonCEl.textContent = quizQuestion[0].C;
+  quizButtonCEl.setAttribute('onclick', 'checkBtn()');
+  quizButtonCEl.textContent = quizQuestion[questionNum].C;
   quizButtonHolderEl.appendChild(quizButtonCEl);
 
   var quizButtonDEl = document.createElement("button");
-  quizButtonDEl.type ="radio"
+  quizButtonDEl.type ="submit"
+  quizButtonDEl.id = "quiz-radio-btn";
   quizButtonDEl.className = "quiz-radio-btn";
-  quizButtonDEl.textContent = quizQuestion[0].D;
+  quizButtonDEl.setAttribute('onclick', 'checkBtn()');
+  quizButtonDEl.textContent = quizQuestion[questionNum].D;
   quizButtonHolderEl.appendChild(quizButtonDEl);
 
-
-
-
-
   quizContainerParent.prepend(quizPopulatedDivEl);
+  questionNum++;
+
+  return quizButtonDEl;
+  
+   
+    // selectButton.addEventListener("click", console.log("yee"));
 };
 
 //Create or add to code above that removes and cycles through questions
@@ -69,7 +83,7 @@ var createQuizQuestionEl = function(){
 
 //Countdown function
 function countdown() {
-  var timeLeft = 60;
+  
   var timeInterval = setInterval(function() {
     timerEl.textContent = timeLeft;
 
@@ -108,27 +122,36 @@ buttonEl.addEventListener("click", countdown);
 buttonEl.addEventListener("click", quizBegin);
 buttonEl.addEventListener("click", createQuizQuestionEl);
 
+var checkBtn = function(){
 
-
+if(selectButton == quizQuestion.Answer){
+  console.log("Correct");
+}
+else{
+  console.log("Incorrect");
+  }
+};
 
 //Question object array
-// Key: Value needs to be stringified
 var quizQuestion = [
 
 {
   Topic: "JavaScript",
-  Question: "Question 1", 
-  A: "Answer 1",
-  B: "Answer 2",
-  C: "Answer 3",
-  D: "Answer 3"
+  Question: "Which of the following function of String object creates a string to be displayed as bold as if it were in a <b> tag?", 
+  A: "anchor()",
+  B: "big()",
+  C: "blink()",
+  D: "bold()",
+  Answer: "bold()"
 },
 
 {
-  Topic: "Second question", 
-  A: "An1",
-  B: "An2",
-  C: "An3",
-  D: "An4"
-}]
+  Topic: "JavaScript",
+  Question: "Which of the following function of Array object removes the first element from an array and returns that element?", 
+  A: "reverse()",
+  B: "shift()",
+  C: "slice()",
+  D: "some()",
+  Answer: "B"
+}];
 
