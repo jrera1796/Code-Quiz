@@ -4,10 +4,11 @@ var buttonEl = document.getElementById("start-btn");
 var hsViewScore = document.getElementById("hs-stats");
 var hsButtonEl = document.getElementById("high-score");
 var questionNum = 0;
-var timeLeft = 200;
-var selectButton = document.getElementById("quiz-radio-btn");
+var timeLeft = 100;
 
-//When a question is answered correctly/incorrectly check and save answer and delete 
+
+var hsScoreKeep = 0;
+var hsSavedScore = JSON.parse(localStorage.getItem('userSave')) || [];
 
 
 //This is the parent that will hold my quiz childs
@@ -15,9 +16,16 @@ var quizContainerParent = document.getElementById("quiz-content")
 
 //Starts quiz and removes welcome screen element
 var createQuizQuestionEl = function(){
- 
+
+  if(questionNum >= quizQuestion.length){
+    //Display score function
+    saveHS();
+  }
+  else{
+
   //Creating div element
   var quizPopulatedDivEl = document.createElement("div");
+  quizPopulatedDivEl.id = "quiz-container";
   quizPopulatedDivEl.className = "quiz-container";
   
   //creating h2 element
@@ -41,45 +49,70 @@ var createQuizQuestionEl = function(){
   //creating radio buttons
   var quizButtonAEl = document.createElement("button");
   quizButtonAEl.type ="submit"
-  quizButtonAEl.id = "quiz-radio-btn";
+  quizButtonAEl.id = "A";
   quizButtonAEl.className = "quiz-radio-btn";
   quizButtonAEl.textContent = quizQuestion[questionNum].A;
   quizButtonHolderEl.appendChild(quizButtonAEl);
 
   var quizButtonBEl = document.createElement("button");
   quizButtonBEl.type ="submit"
-  quizButtonBEl.id = "quiz-radio-btn";
+  quizButtonBEl.id = "B";
   quizButtonBEl.className = "quiz-radio-btn";
   quizButtonBEl.textContent = quizQuestion[questionNum].B;
   quizButtonHolderEl.appendChild(quizButtonBEl);
 
   var quizButtonCEl = document.createElement("button");
   quizButtonCEl.type ="submit"
-  quizButtonCEl.id = "quiz-radio-btn";
+  quizButtonCEl.id = "C";
   quizButtonCEl.className = "quiz-radio-btn";
-  quizButtonCEl.setAttribute('onclick', 'checkBtn()');
   quizButtonCEl.textContent = quizQuestion[questionNum].C;
   quizButtonHolderEl.appendChild(quizButtonCEl);
 
   var quizButtonDEl = document.createElement("button");
   quizButtonDEl.type ="submit"
-  quizButtonDEl.id = "quiz-radio-btn";
+  quizButtonDEl.id = "D";
   quizButtonDEl.className = "quiz-radio-btn";
-  quizButtonDEl.setAttribute('onclick', 'checkBtn()');
   quizButtonDEl.textContent = quizQuestion[questionNum].D;
   quizButtonHolderEl.appendChild(quizButtonDEl);
 
   quizContainerParent.prepend(quizPopulatedDivEl);
-  questionNum++;
 
-  return quizButtonDEl;
-  
-   
-    // selectButton.addEventListener("click", console.log("yee"));
+  //button listeners/answer holder
+  var answerHolder = "";
+
+  selectButtonA = document.getElementById("A").onclick = function(){
+    answerHolder = "A";
+    checkAnswer();
+  };
+  selectButtonB = document.getElementById("B").onclick = function(){
+    answerHolder = "B";
+    checkAnswer();
+  };
+  selectButtonC = document.getElementById("C").onclick = function(){
+    answerHolder = "C";
+    checkAnswer();
+  };
+  selectButtonD = document.getElementById("D").onclick = function(){
+    answerHolder = "D";
+    checkAnswer();
+  };
+
+  //Answer check
+  checkAnswer = function(){
+    
+if(answerHolder == quizQuestion[questionNum].Answer){
+  hsScoreKeep = hsScoreKeep + 5;
+  console.log("This answer is correct!" + "Current Score " + hsScoreKeep);
+  removeReplace();
+}
+else{
+  console.log("This answer is wrong");
+  timeLeft = timeLeft - 10;
+  removeReplace();
+}
+}
+}
 };
-
-//Create or add to code above that removes and cycles through questions
-//like if 
 
 //Countdown function
 function countdown() {
@@ -98,10 +131,44 @@ function countdown() {
 //Removes quiz welcome screen and starts quiz
 var quizBegin = function(){
   var removeWelcome=document.getElementById("welcomeDiv")
-  removeWelcome.remove();
+  removeWelcome.style.display = "none";
 
   var removeStartBtn = document.getElementById("start-btn")
-  removeStartBtn.remove();
+  removeStartBtn.style.display = "none";
+}
+
+//Removes and replaces quiz container elements
+var removeReplace = function(){
+
+  if(questionNum < quizQuestion.length){
+    questionNum++;
+    document.getElementById("quiz-container").remove();
+    createQuizQuestionEl();
+  }
+  else{
+    document.getElementById("quiz-container").remove()
+    console.log("Thanks for Playing")
+  }
+};
+
+//When game is over user writes in score
+
+//This function saves into HTML and pushes to local storage
+function saveHS(){
+
+  var hsList = document.getElementById("hs-list");
+  
+  var hsSavedName = document.createElement("li");
+  hsSavedName.textContent = userInitials;
+
+  var hsSavedScore = document.createElement("p");
+  hsSavedScore.textContent = (hsScoreKeep);
+  hsSavedName.appendChild(hsSavedScore);
+  hsList.appendChild(hsSavedName);
+  
+  //Fix this 
+  localStorage.setItem(userSave.Initials, userSave.Score);
+ 
 }
 
 //High score visibilty handler
@@ -117,41 +184,53 @@ var hsHandler = function(){
 //High Score button listener
 hsButtonEl.addEventListener("click", hsHandler);
   
-//Only run once quiz is started
+//Only runs once when quiz is started
 buttonEl.addEventListener("click", countdown);
 buttonEl.addEventListener("click", quizBegin);
 buttonEl.addEventListener("click", createQuizQuestionEl);
 
-var checkBtn = function(){
-
-if(selectButton == quizQuestion.Answer){
-  console.log("Correct");
-}
-else{
-  console.log("Incorrect");
-  }
-};
 
 //Question object array
 var quizQuestion = [
 
 {
-  Topic: "JavaScript",
+  Topic: "Start",
   Question: "Which of the following function of String object creates a string to be displayed as bold as if it were in a <b> tag?", 
   A: "anchor()",
   B: "big()",
   C: "blink()",
   D: "bold()",
-  Answer: "bold()"
+  Answer: "D"
 },
 
 {
-  Topic: "JavaScript",
+  Topic: "HTML",
   Question: "Which of the following function of Array object removes the first element from an array and returns that element?", 
   A: "reverse()",
   B: "shift()",
   C: "slice()",
   D: "some()",
   Answer: "B"
-}];
+},
+
+{
+  Topic: "CSS",
+  Question: "Which of the following function of Array object removes the first element from an array and returns that element?", 
+  A: "reverse()",
+  B: "shift()",
+  C: "slice()",
+  D: "some()",
+  Answer: "B"
+},
+
+{
+  Topic: "End",
+  Question: "Which of the following function of Array object removes the first element from an array and returns that element?", 
+  A: "reverse()",
+  B: "shift()",
+  C: "slice()",
+  D: "some()",
+  Answer: "B"
+}
+];
 
