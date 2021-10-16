@@ -9,17 +9,22 @@ var timeLeft = 100;
 
 var hsScoreKeep = 0;
 var hsSavedScore = JSON.parse(localStorage.getItem('userSave')) || [];
-
+var userInitials;
 
 //This is the parent that will hold my quiz childs
 var quizContainerParent = document.getElementById("quiz-content") 
+var getScore = localStorage.getItem();
+
+// for(var i = 0; i );
 
 //Starts quiz and removes welcome screen element
 var createQuizQuestionEl = function(){
 
   if(questionNum >= quizQuestion.length){
     //Display score function
+    userInitials = window.prompt("");
     saveHS();
+    
   }
   else{
 
@@ -151,8 +156,20 @@ var removeReplace = function(){
   }
 };
 
-//When game is over user writes in score
+// function getHighScoreList(){
+//   var hsList = document.getElementById("hs-list");
+  
+//   var hsSavedName = document.createElement("li");
+//   hsSavedName.textContent = userInitials;
 
+//   var hsSavedScoreEl = document.createElement("p");
+//   hsSavedScoreEl.textContent = (hsObject.Initials);
+//   hsSavedName.appendChild(hsSavedScoreEl);
+  
+//   hsList.appendChild(hsSavedName);
+// }
+
+//When game is over user writes in score
 //This function saves into HTML and pushes to local storage
 function saveHS(){
 
@@ -161,13 +178,21 @@ function saveHS(){
   var hsSavedName = document.createElement("li");
   hsSavedName.textContent = userInitials;
 
-  var hsSavedScore = document.createElement("p");
-  hsSavedScore.textContent = (hsScoreKeep);
-  hsSavedName.appendChild(hsSavedScore);
-  hsList.appendChild(hsSavedName);
+  var hsSavedScoreEl = document.createElement("p");
+  hsSavedScoreEl.textContent = (hsScoreKeep);
+  hsSavedName.appendChild(hsSavedScoreEl);
   
+  hsList.appendChild(hsSavedName);
+
+  var hsObject = {
+    Initials: userInitials,
+    Score: hsScoreKeep
+  };
+
+  hsSavedScore.push(hsObject);
+
   //Fix this 
-  localStorage.setItem(userSave.Initials, userSave.Score);
+  localStorage.setItem('userSave', JSON.stringify(hsSavedScore));
  
 }
 
@@ -180,6 +205,8 @@ var hsHandler = function(){
     hsViewScore.style.display = "none";
   }
 };
+
+
 
 //High Score button listener
 hsButtonEl.addEventListener("click", hsHandler);
