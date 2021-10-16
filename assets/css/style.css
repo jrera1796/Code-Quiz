@@ -102,6 +102,12 @@ div{
 
 .quiz-radio-btn{
   width: 50%;
-
 }
 
+
+.hs-save{
+  display: flex;
+  justify-content: space-evenly;
+  color: rgb(0, 0, 0);
+  font-weight: bold;
+}

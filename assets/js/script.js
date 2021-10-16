@@ -1,8 +1,9 @@
 var timerEl = document.getElementById('countdown');
 var buttonEl = document.getElementById("start-btn");
-
+var hsListEl = document.getElementById("hs-save");
 var hsViewScore = document.getElementById("hs-stats");
 var hsButtonEl = document.getElementById("high-score");
+var hsClearButton = document.getElementById("clear-btn");
 var questionNum = 0;
 var timeLeft = 100;
 
@@ -13,9 +14,6 @@ var userInitials;
 
 //This is the parent that will hold my quiz childs
 var quizContainerParent = document.getElementById("quiz-content") 
-var getScore = localStorage.getItem();
-
-// for(var i = 0; i );
 
 //Starts quiz and removes welcome screen element
 var createQuizQuestionEl = function(){
@@ -24,7 +22,10 @@ var createQuizQuestionEl = function(){
     //Display score function
     userInitials = window.prompt("");
     saveHS();
-    
+    timeLeft = 0;
+    questionNum = 0;
+    hsScoreKeep = 0;
+    quizBegin();
   }
   else{
 
@@ -119,63 +120,65 @@ else{
 }
 };
 
-//Countdown function
-function countdown() {
-  
-  var timeInterval = setInterval(function() {
-    timerEl.textContent = timeLeft;
-
-    if(timeLeft <= 0){
-      timerEl.textContent = '';
-      clearInterval(timeInterval);
-    }
-    timeLeft--;
-   }, 1000);
-  };
-
 //Removes quiz welcome screen and starts quiz
 var quizBegin = function(){
-  var removeWelcome=document.getElementById("welcomeDiv")
-  removeWelcome.style.display = "none";
 
+  var removeWelcome = document.getElementById("welcomeDiv")
   var removeStartBtn = document.getElementById("start-btn")
+
+  if (removeWelcome.style.display === "block"){
+  removeWelcome.style.display = "none";
   removeStartBtn.style.display = "none";
-}
+  }
+  else{
+    removeWelcome.style.display = "block"
+    removeStartBtn.style.display = "block"
+  }
+  
+};
 
 //Removes and replaces quiz container elements
 var removeReplace = function(){
-
+  
   if(questionNum < quizQuestion.length){
     questionNum++;
     document.getElementById("quiz-container").remove();
     createQuizQuestionEl();
   }
   else{
-    document.getElementById("quiz-container").remove()
     console.log("Thanks for Playing")
+    document.getElementById("quiz-container").remove();
+
   }
 };
 
-// function getHighScoreList(){
-//   var hsList = document.getElementById("hs-list");
-  
-//   var hsSavedName = document.createElement("li");
-//   hsSavedName.textContent = userInitials;
+//Populates High Score HTML element from local storage
+function getScore(){
 
-//   var hsSavedScoreEl = document.createElement("p");
-//   hsSavedScoreEl.textContent = (hsObject.Initials);
-//   hsSavedName.appendChild(hsSavedScoreEl);
+  for(var i = 0; i < hsSavedScore.length; i++) {
   
-//   hsList.appendChild(hsSavedName);
-// }
+    var hsList = document.getElementById("hs-list");
+    
+    var hsSavedName = document.createElement("li");
+    hsSavedName.className = "hs-save";
+    hsSavedName.id = "hs-save";
+    hsSavedName.textContent = hsSavedScore[i].Initials;
+  
+    var hsSavedScoreEl = document.createElement("p");
+    hsSavedScoreEl.textContent = hsSavedScore[i].Score;
+    hsSavedName.appendChild(hsSavedScoreEl);
+    hsList.appendChild(hsSavedName);
+  }
+  };
 
-//When game is over user writes in score
-//This function saves into HTML and pushes to local storage
+//Saves high score into visible HTML elements and local storage
 function saveHS(){
 
   var hsList = document.getElementById("hs-list");
   
   var hsSavedName = document.createElement("li");
+  hsSavedName.className = "hs-save";
+  hsSavedName.id = "hs-save";
   hsSavedName.textContent = userInitials;
 
   var hsSavedScoreEl = document.createElement("p");
@@ -190,31 +193,8 @@ function saveHS(){
   };
 
   hsSavedScore.push(hsObject);
-
-  //Fix this 
   localStorage.setItem('userSave', JSON.stringify(hsSavedScore));
- 
 }
-
-//High score visibilty handler
-var hsHandler = function(){
-  if (hsViewScore.style.display === "none"){
-    hsViewScore.style.display = "block";
-  }
-  else {
-    hsViewScore.style.display = "none";
-  }
-};
-
-
-
-//High Score button listener
-hsButtonEl.addEventListener("click", hsHandler);
-  
-//Only runs once when quiz is started
-buttonEl.addEventListener("click", countdown);
-buttonEl.addEventListener("click", quizBegin);
-buttonEl.addEventListener("click", createQuizQuestionEl);
 
 
 //Question object array
@@ -260,4 +240,51 @@ var quizQuestion = [
   Answer: "B"
 }
 ];
+
+//Countdown function
+function countdown() {
+  timeLeft = 100;
+  var timeInterval = setInterval(function() {
+    timerEl.textContent = timeLeft;
+
+    if(timeLeft <= 0){
+      timerEl.textContent = '';
+      clearInterval(timeInterval);
+    }
+    timeLeft--;
+   }, 1000);
+  };
+
+//High score visibilty handler
+var hsHandler = function(){
+  if (hsViewScore.style.display === "none"){
+    hsViewScore.style.display = "block";
+  }
+  else {
+    hsViewScore.style.display = "none";
+  }
+};
+
+var clearList = function(){
+  localStorage.clear('userSave');
+
+  for(var i = 0; i < hsSavedScore.length; i++){
+  document.getElementById("hs-save").remove();
+  
+}
+};
+
+//High Score button listener and populate function
+hsButtonEl.addEventListener("click", hsHandler);
+getScore();
+
+//High score clear button
+hsClearButton.addEventListener("click", clearList);
+
+
+//Only runs once when quiz is started
+buttonEl.addEventListener("click", countdown);
+buttonEl.addEventListener("click", quizBegin);
+buttonEl.addEventListener("click", createQuizQuestionEl);
+
 
