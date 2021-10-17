@@ -78,7 +78,7 @@ div{
 .quiz-prompt, .hs-list, .welcomeP{
   list-style: none;
   padding: 15px;
-  height: 50%;
+  height: max-content;
   background: rgb(196, 196, 196);
   border-radius: 12px;
   
@@ -87,10 +87,11 @@ div{
 
 .quiz-radio-btn{
  align-items: center;
- 
+ width: 50%;
+ padding: 3%;
 }
 .welcomeP{
-  font-weight:bold;
+  font-weight:normal;
   font-size: 28px;
   justify-content: center;
 }
@@ -100,10 +101,14 @@ div{
   margin: 0;
 }
 
-.quiz-radio-btn{
-  width: 50%;
+.button-holder{
+  display: flex;
+  flex-wrap: wrap;
+  padding: 2%;
 }
-
+.clear-btn{
+  float: right;
+}
 
 .hs-save{
   display: flex;

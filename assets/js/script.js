@@ -5,7 +5,7 @@ var hsViewScore = document.getElementById("hs-stats");
 var hsButtonEl = document.getElementById("high-score");
 var hsClearButton = document.getElementById("clear-btn");
 var questionNum = 0;
-var timeLeft = 100;
+var timeLeft = 10;
 
 
 var hsScoreKeep = 0;
@@ -20,7 +20,7 @@ var createQuizQuestionEl = function(){
 
   if(questionNum >= quizQuestion.length){
     //Display score function
-    userInitials = window.prompt("");
+    userInitials = window.prompt("Please Enter your Initials").toUpperCase();
     saveHS();
     timeLeft = 0;
     questionNum = 0;
@@ -201,33 +201,33 @@ function saveHS(){
 var quizQuestion = [
 
 {
-  Topic: "Start",
-  Question: "Which of the following function of String object creates a string to be displayed as bold as if it were in a <b> tag?", 
-  A: "anchor()",
-  B: "big()",
-  C: "blink()",
-  D: "bold()",
-  Answer: "D"
+  Topic: "JavaScript",
+  Question: "What is the correct syntax for referring to an external script called 'abc.js'?", 
+  A: "<script href= 'abc.js'>",
+  B: "<script name= 'abc.js'>",
+  C: "<script src=' abc.js'>",
+  D: "None of the above",
+  Answer: "C"
 },
 
 {
-  Topic: "HTML",
-  Question: "Which of the following function of Array object removes the first element from an array and returns that element?", 
-  A: "reverse()",
-  B: "shift()",
-  C: "slice()",
-  D: "some()",
+  Topic: "JavaScript",
+  Question: "Why do JavaScript and Java have similar name?", 
+  A: "JavaScript is a stripped-down version of Java",
+  B: "JavaScript's syntax is loosely based on Java's",
+  C: "They both originated on the island of Java",
+  D: "None of the above",
   Answer: "B"
 },
 
 {
   Topic: "CSS",
   Question: "Which of the following function of Array object removes the first element from an array and returns that element?", 
-  A: "reverse()",
-  B: "shift()",
-  C: "slice()",
-  D: "some()",
-  Answer: "B"
+  A: "Style sheets allow content to be optimized for more than one type of device.",
+  B: "CSS can store web applications locally with the help of an offline catche.",
+  C: "Using CSS, we can view offline websites.The cache also ensures faster loading and better overall performance of the website.",
+  D: " All of the above.",
+  Answer: "D"
 },
 
 {
@@ -243,13 +243,16 @@ var quizQuestion = [
 
 //Countdown function
 function countdown() {
-  timeLeft = 100;
+  timeLeft = 10;
   var timeInterval = setInterval(function() {
     timerEl.textContent = timeLeft;
 
     if(timeLeft <= 0){
       timerEl.textContent = '';
       clearInterval(timeInterval);
+      questionNum = questionNum + 10;
+      removeReplace();
+      createQuizQuestionEl();
     }
     timeLeft--;
    }, 1000);
