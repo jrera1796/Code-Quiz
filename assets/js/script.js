@@ -134,7 +134,7 @@ if(answerHolder == quizQuestion[questionNum].Answer){
   
   var answerShown = document.createElement("p");
   answerShown.id = "answer-shown";
-  answerShown.style = "font-weight: bolder; font-size: 20px; color: green;"
+  answerShown.style = "font-weight: bolder; font-size: 20px; color: black;"
   answerShown.textContent = "That answer was correct!" + "Current Score " + hsScoreKeep; 
   quizContainerParent.appendChild(answerShown);
   
@@ -150,7 +150,7 @@ else{
   var answerShown = document.createElement("p");
   answerShown.id = "answer-shown";
   answerShown.style = "font-weight: bolder; font-size: 20px; color: black;"
-  answerShown.textContent = "This answer is wrong." + "Current Score " + hsScoreKeep; 
+  answerShown.textContent = "That answer was wrong." + "Current Score " + hsScoreKeep; 
   quizContainerParent.appendChild(answerShown);
 
   timeLeft = timeLeft - 10;
@@ -267,28 +267,46 @@ var quizQuestion = [
 
 {
   Topic: "CSS",
-  Question: "Which of the following function of Array object removes the first element from an array and returns that element?", 
-  A: "Style sheets allow content to be optimized for more than one type of device.",
-  B: "CSS can store web applications locally with the help of an offline catche.",
-  C: "Using CSS, we can view offline websites.The cache also ensures faster loading and better overall performance of the website.",
-  D: " All of the above.",
-  Answer: "D"
+  Question: "If we want to place text around an image, which CSS property should we use?", 
+  A: "push",
+  B: "float",
+  C: "align",
+  D: "wrap",
+  Answer: "B"
 },
 
 {
-  Topic: "End",
-  Question: "Which of the following function of Array object removes the first element from an array and returns that element?", 
-  A: "reverse()",
-  B: "shift()",
-  C: "slice()",
-  D: "some()",
-  Answer: "B"
+  Topic: "HTML",
+  Question: "An HTML document can contain _____", 
+  A: "Attributes",
+  B: "Tags",
+  C: "Raw text",
+  D: "All of the above",
+  Answer: "D"
+},
+{
+  Topic: "HTML",
+  Question: "A page designed in HTML is called _____", 
+  A: "Application",
+  B: "Cover page",
+  C: "Front-end",
+  D: "Web Page",
+  Answer: "D"
+},
+{
+  Topic: "CSS",
+  Question: "What does CSS stand for?", 
+  A: "Cascade style sheets",
+  B: "Color and style sheets",
+  C: "Cascading style sheets",
+  D: "Cascading sheet style",
+  Answer: "C"
 }
 ];
 
 //Countdown function
 function countdown() {
-  timeLeft = 100;
+  timeLeft = 60;
   var timeInterval = setInterval(function() {
     timerEl.textContent = timeLeft;
 
