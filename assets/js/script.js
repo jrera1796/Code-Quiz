@@ -20,6 +20,7 @@ var createQuizQuestionEl = function(){
 
   if(questionNum >= quizQuestion.length){
     //Display score function
+    // PopUpInput();
     userInitials = window.prompt("Please Enter your Initials").toUpperCase();
     saveHS();
     timeLeft = 0;
@@ -137,6 +138,7 @@ var quizBegin = function(){
   
 };
 
+
 //Removes and replaces quiz container elements
 var removeReplace = function(){
   
@@ -147,6 +149,7 @@ var removeReplace = function(){
   }
   else{
     console.log("Thanks for Playing")
+    
     document.getElementById("quiz-container").remove();
 
   }
