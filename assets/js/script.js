@@ -332,12 +332,13 @@ var hsHandler = function(){
 };
 
 var clearList = function(){
+  
   localStorage.clear('userSave');
-
+  
   for(var i = 0; i < hsSavedScore.length; i++){
   document.getElementById("hs-save").remove();
-  
-}
+  }
+
 };
 
 //High Score button listener and populate function
