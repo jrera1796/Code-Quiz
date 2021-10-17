@@ -21,7 +21,7 @@ var createQuizQuestionEl = function(){
   if(questionNum >= quizQuestion.length){
     //Display score function
     // PopUpInput();
-    userInitials = window.prompt("Please Enter your Initials").toUpperCase();
+    userInitials = window.prompt("Thanks for playing! Your score is " + hsScoreKeep + "! Please enter your initials.").toUpperCase();
     saveHS();
     timeLeft = 0;
     questionNum = 0;
@@ -138,6 +138,38 @@ var quizBegin = function(){
   
 };
 
+var PopUpInput = function(){
+
+  //Creating div element
+  var quizPopulatedDivEl = document.createElement("div");
+  quizPopulatedDivEl.id = "quiz-container";
+  quizPopulatedDivEl.className = "quiz-container";
+  quizPopulatedDivEl.style = "display: flex; flex-direction: column; flex-wrap: wrap;"
+  //creating h2 element
+  var quizH2el = document.createElement("h2");
+  quizH2el.textContent = "Thanks for playing! Your score is " + hsScoreKeep + "! Please enter your initials.";
+  quizH2el.className = "quiz-title";
+
+  quizPopulatedDivEl.appendChild(quizH2el);
+
+  //creating h3 element
+  var quizH3El = document.createElement("textarea");
+  quizH3El.textContent = "";
+  quizH3El.style = "background-color: white; width: 200px; height: 15px;"
+  quizH3El.className = "quiz-prompt";
+  quizPopulatedDivEl.appendChild(quizH3El);
+
+  //creating radio container
+  var quizButtonHolderEl = document.createElement("button")
+  quizButtonHolderEl.className = "quiz-radio-btn";
+  quizButtonHolderEl.textContent = "Submit";
+  quizButtonHolderEl.style = "padding: 3%;";
+  quizPopulatedDivEl.appendChild(quizButtonHolderEl);
+
+  quizContainerParent.prepend(quizPopulatedDivEl);
+
+  
+}
 
 //Removes and replaces quiz container elements
 var removeReplace = function(){
