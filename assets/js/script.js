@@ -113,7 +113,7 @@ if(answerHolder == quizQuestion[questionNum].Answer){
   removeReplace();
 }
 else{
-  console.log("This answer is wrong");
+  console.log("This answer is wrong." + "Current Score " + hsScoreKeep);
   timeLeft = timeLeft - 10;
   removeReplace();
 }
