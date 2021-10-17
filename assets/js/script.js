@@ -21,6 +21,8 @@ var createQuizQuestionEl = function(){
   if(questionNum >= quizQuestion.length){
     //Display score function
     // PopUpInput();
+    
+    document.getElementById("answer-shown").remove();
     userInitials = window.prompt("Thanks for playing! Your score is " + hsScoreKeep + "! Please enter your initials.").toUpperCase();
     saveHS();
     timeLeft = 0;
@@ -109,11 +111,32 @@ var createQuizQuestionEl = function(){
     
 if(answerHolder == quizQuestion[questionNum].Answer){
   hsScoreKeep = hsScoreKeep + 5;
-  console.log("This answer is correct!" + "Current Score " + hsScoreKeep);
+
+  if(document.getElementById("answer-shown")){
+    document.getElementById("answer-shown").remove()
+  }
+  
+  var answerShown = document.createElement("p");
+  answerShown.id = "answer-shown";
+  answerShown.style = "font-weight: bolder; font-size: 20px; color: green;"
+  answerShown.textContent = "That answer was correct!" + "Current Score " + hsScoreKeep; 
+  quizContainerParent.appendChild(answerShown);
+  
   removeReplace();
+  
 }
 else{
-  console.log("This answer is wrong." + "Current Score " + hsScoreKeep);
+
+  if(document.getElementById("answer-shown")){
+    document.getElementById("answer-shown").remove()
+  }
+
+  var answerShown = document.createElement("p");
+  answerShown.id = "answer-shown";
+  answerShown.style = "font-weight: bolder; font-size: 20px; color: black;"
+  answerShown.textContent = "This answer is wrong." + "Current Score " + hsScoreKeep; 
+  quizContainerParent.appendChild(answerShown);
+
   timeLeft = timeLeft - 10;
   removeReplace();
 }
@@ -145,13 +168,14 @@ var removeReplace = function(){
   if(questionNum < quizQuestion.length){
     questionNum++;
     document.getElementById("quiz-container").remove();
+    
     createQuizQuestionEl();
   }
   else{
-    console.log("Thanks for Playing")
-    
+    // debugger;
     document.getElementById("quiz-container").remove();
-
+    // console.log("Thanks for Playing");
+    
   }
 };
 
@@ -246,7 +270,7 @@ var quizQuestion = [
 
 //Countdown function
 function countdown() {
-  timeLeft = 10;
+  timeLeft = 100;
   var timeInterval = setInterval(function() {
     timerEl.textContent = timeLeft;
 
