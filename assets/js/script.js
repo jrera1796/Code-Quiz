@@ -22,14 +22,30 @@ var createQuizQuestionEl = function(){
     //Display score function
     // PopUpInput();
     
+    if(document.getElementById("answer-shown") && !null){
     document.getElementById("answer-shown").remove();
-    userInitials = window.prompt("Thanks for playing! Your score is " + hsScoreKeep + "! Please enter your initials.").toUpperCase();
-    saveHS();
+    };
+    
+    if(document.getElementById("quiz-container") && !null){
+      document.getElementById("quiz-container").remove();
+    }
+    if (hsScoreKeep > 0){
+      
+      userInitials = window.prompt("Thanks for playing! Your score is " + hsScoreKeep + "! Please enter your initials.").toUpperCase();
+      saveHS();
+    }
+    if (questionNum > 0 && hsScoreKeep <= 0 && !timeLeft == 0){
+      
+      window.alert("In an effort to save storage space your terrible score will not be recorded. Please try again!");
+      
+    }
+    // userInitials = window.prompt("Thanks for playing! Your score is " + hsScoreKeep + "! Please enter your initials.").toUpperCase();
+    
     timeLeft = 0;
     questionNum = 0;
     hsScoreKeep = 0;
-    quizBegin();
-  }
+}
+
   else{
 
   //Creating div element
@@ -167,16 +183,18 @@ var removeReplace = function(){
   
   if(questionNum < quizQuestion.length){
     questionNum++;
+    
     document.getElementById("quiz-container").remove();
     
     createQuizQuestionEl();
   }
   else{
     // debugger;
-    document.getElementById("quiz-container").remove();
-    // console.log("Thanks for Playing");
+    quizBegin();
     
+    // debugger;
   }
+  
 };
 
 //Populates High Score HTML element from local storage
