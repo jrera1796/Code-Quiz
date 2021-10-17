@@ -21,7 +21,7 @@ var createQuizQuestionEl = function(){
   if(questionNum >= quizQuestion.length){
     //Display score function
     // PopUpInput();
-    userInitials = window.prompt("Please Enter your Initials").toUpperCase();
+    userInitials = window.prompt("Thanks for playing! Your score is " + hsScoreKeep + "! Please enter your initials.").toUpperCase();
     saveHS();
     timeLeft = 0;
     questionNum = 0;
